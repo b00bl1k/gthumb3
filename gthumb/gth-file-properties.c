@@ -117,19 +117,17 @@ gth_file_properties_real_can_view (GthPropertyView *base,
 		}
 
 		if (info->id != NULL) {
-			if (g_str_has_prefix (info->id, "Exif")) {
+			if (g_str_has_prefix (info->id, "Exif")
+				|| g_str_has_prefix (info->id, "Iptc")
+				|| g_str_has_prefix (info->id, "Xmp"))
+			{
 				data_available = TRUE;
-				break;
-			}
-			else if (g_str_has_prefix (info->id, "Iptc")) {
-				data_available = TRUE;
-				break;
-			}
-			else if (g_str_has_prefix (info->id, "Xmp")) {
-				data_available = TRUE;
-				break;
 			}
 		}
+
+		g_free (value);
+		if (data_available)
+			break;
 	}
 	g_list_free (metadata_info);
 
@@ -164,6 +162,8 @@ gth_file_properties_real_set_file (GthPropertyView *base,
 
 		if (selected_id != NULL)
 			_g_str_set (&self->priv->last_selected, selected_id);
+
+		g_free (selected_id);
 	}
 
 	gtk_list_store_clear (self->priv->tree_model);
@@ -187,12 +187,6 @@ gth_file_properties_real_set_file (GthPropertyView *base,
 		if (info->id == NULL)
 			continue;
 
-		value = gth_file_data_get_attribute_as_string (file_data, info->id);
-		if ((value == NULL) || (*value == '\0')) {
-			g_free (value);
-			continue;
-		}
-
 		if (! self->priv->show_details && ! self->priv->default_favorites) {
 			if (! g_hash_table_contains (self->priv->favorites, info->id))
 				continue;
@@ -213,7 +207,13 @@ gth_file_properties_real_set_file (GthPropertyView *base,
 			if (self->priv->show_details)
 				continue;
 
-		if (value != NULL) {
+		value = gth_file_data_get_attribute_as_string (file_data, info->id);
+		if ((value == NULL) || (*value == '\0')) {
+			g_free (value);
+			continue;
+		}
+
+		{
 			char *utf8_value;
 			char *tmp_value;
 
