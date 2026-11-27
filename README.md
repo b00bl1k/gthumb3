@@ -1,9 +1,14 @@
-# gThumb
+# gThumb3
 
-An image viewer and browser utility for the GNOME environment.
-More information can be found at <https://gitlab.gnome.org/GNOME/gthumb/>.
+An image viewer and browser utility.
 
-![Image](https://gitlab.gnome.org/GNOME/gthumb/raw/master/data/appdata/ss-viewer.png)
+![Image](data/appdata/ss-viewer.png)
+
+## About this fork
+
+gThumb3 is a fork of the original [gThumb](https://gitlab.gnome.org/GNOME/gthumb)
+project. Since the upstream project has moved to GTK 4 and libadwaita, this fork
+was created to keep maintaining the GTK 3 based branch of the application.
 
 ## Features
 
@@ -56,7 +61,7 @@ More information can be found at <https://gitlab.gnome.org/GNOME/gthumb/>.
 
 ## Extensions
 
-  gThumb has a plug-in system for extensions. Some standard features
+  gThumb3 has a plug-in system for extensions. Some standard features
   are implemented as extensions and are supplied with the standard
   distribution. Users may write (and share) additional extensions.
 
@@ -78,7 +83,7 @@ More information can be found at <https://gitlab.gnome.org/GNOME/gthumb/>.
   * libjpeg
   * gsettings-desktop-schemas
 
-  While not mandatory, the following libraries greatly increase gThumb's basic usefulness:
+  While not mandatory, the following libraries greatly increase gThumb3's basic usefulness:
 
   * exiv2 - embedded metadata support
   * gstreamer, gstreamer-plugins-base, gstreamer-video - audio/video support
@@ -99,17 +104,16 @@ More information can be found at <https://gitlab.gnome.org/GNOME/gthumb/>.
   * brasero - write images and comments to CDs
   * bison, flex - web albums
 
-## Download
-
-  Source archives available at <https://download.gnome.org/sources/gthumb/>.
-
-  Clone the Git repository:
-
-    git clone https://gitlab.gnome.org/GNOME/gthumb.git
-
 ## Installation
 
     cd gthumb
     meson build
     ninja -C build
     sudo ninja -C build install
+
+## Acknowledgements
+
+Many thanks to Paolo Bacchilega, Michael J. Chudobiak and all the
+contributors and translators of the original gThumb project for many years
+of work on this excellent application. This fork would not exist without
+them. See the [AUTHORS](AUTHORS) file for the list of contributors.
