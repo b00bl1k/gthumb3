@@ -277,6 +277,7 @@ gth_spline_setup (GthCurve *curve)
 	n = points->n;
 	p = points->p;
 
+	g_free (spline->k);
 	spline->k = g_new (double, n + 1);
 	for (i = 0; i < n + 1; i++)
 		spline->k[i] = 1.0;
@@ -664,6 +665,9 @@ gth_bezier_setup (GthCurve *curve)
 	points = gth_curve_get_points (GTH_CURVE (spline));
 	n = points->n;
 	p = points->p;
+
+	g_free (spline->k);
+	spline->k = NULL;
 
 	spline->linear = (n <= 1);
 	if (spline->linear)
