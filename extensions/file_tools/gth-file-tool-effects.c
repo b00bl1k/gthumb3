@@ -107,7 +107,7 @@ image_task_completed_cb (GthTask  *task,
 		gth_file_tool_hide_options (GTH_FILE_TOOL (self));
 	}
 	else {
-		if (! self->priv->view_original)
+		if (! self->priv->view_original && (self->priv->preview_tool != NULL))
 			gth_preview_tool_set_image (GTH_PREVIEW_TOOL (self->priv->preview_tool), self->priv->destination);
 	}
 
@@ -282,6 +282,7 @@ gth_file_tool_effects_destroy_options (GthFileTool *base)
 	gth_viewer_page_update_sensitivity (viewer_page);
 
 	_g_clear_object (&self->priv->builder);
+	_g_clear_object (&self->priv->preview_tool);
 
 	_cairo_clear_surface (&self->priv->preview);
 	_cairo_clear_surface (&self->priv->destination);
@@ -316,6 +317,7 @@ gth_file_tool_effects_finalize (GObject *object)
 	self = (GthFileToolEffects *) object;
 
 	_g_clear_object (&self->priv->builder);
+	_g_clear_object (&self->priv->preview_tool);
 	_cairo_clear_surface (&self->priv->preview);
 	_cairo_clear_surface (&self->priv->destination);
 

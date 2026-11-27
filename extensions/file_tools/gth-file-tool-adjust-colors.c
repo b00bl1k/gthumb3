@@ -298,7 +298,7 @@ image_task_completed_cb (GthTask  *task,
 		gth_file_tool_hide_options (GTH_FILE_TOOL (self));
 	}
 	else {
-		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (GET_WIDGET ("preview_checkbutton"))))
+		if ((self->priv->preview_tool != NULL) && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (GET_WIDGET ("preview_checkbutton"))))
 			gth_preview_tool_set_image (GTH_PREVIEW_TOOL (self->priv->preview_tool), self->priv->destination);
 		gth_histogram_calculate_for_image (self->priv->histogram, self->priv->destination);
 	}
@@ -526,6 +526,7 @@ gth_file_tool_adjust_colors_destroy_options (GthFileTool *base)
 	_cairo_clear_surface (&self->priv->preview);
 	_cairo_clear_surface (&self->priv->destination);
 	_g_clear_object (&self->priv->builder);
+	_g_clear_object (&self->priv->preview_tool);
 }
 
 
@@ -613,6 +614,7 @@ gth_file_tool_adjust_colors_finalize (GObject *object)
 	cairo_surface_destroy (self->priv->preview);
 	cairo_surface_destroy (self->priv->destination);
 	_g_object_unref (self->priv->builder);
+	_g_clear_object (&self->priv->preview_tool);
 	_g_object_unref (self->priv->histogram);
 
 	G_OBJECT_CLASS (gth_file_tool_adjust_colors_parent_class)->finalize (object);

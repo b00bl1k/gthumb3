@@ -328,6 +328,7 @@ gth_file_tool_sharpen_destroy_options (GthFileTool *base)
 	gth_viewer_page_update_sensitivity (viewer_page);
 
 	_g_clear_object (&self->priv->builder);
+	_g_clear_object (&self->priv->preview_tool);
 	_cairo_clear_surface (&self->priv->original_source);
 	_cairo_clear_surface (&self->priv->scaled_source);
 	_cairo_clear_surface (&self->priv->preview_source);
@@ -420,6 +421,7 @@ gth_file_tool_sharpen_finalize (GObject *object)
 
 	self = (GthFileToolSharpen *) object;
 	_g_object_unref (self->priv->builder);
+	_g_clear_object (&self->priv->preview_tool);
 
 	G_OBJECT_CLASS (gth_file_tool_sharpen_parent_class)->finalize (object);
 }
