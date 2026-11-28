@@ -56,6 +56,7 @@ original_image_task_completed_cb (GthTask  *task,
 		return;
 	}
 
+	cairo_surface_destroy (self->priv->source);
 	self->priv->source = gth_original_image_task_get_image (task);
 	if (self->priv->source != NULL)
 		GTH_IMAGE_VIEWER_PAGE_TOOL_GET_CLASS (self)->modify_image (self);
